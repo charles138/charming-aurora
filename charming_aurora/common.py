@@ -34,9 +34,9 @@ class Task(ABC):
     * self.conf provides access to the parsed configuration of the job
     """
 
-    def __init__(self, spark=None, init_conf=None, logging=None):
+    def __init__(self, spark=None, init_conf=None):
         self.spark = self._prepare_spark(spark)
-        self.logger = logging 
+        self.logger = self._prepare_logger() 
         self.dbutils = self.get_dbutils()
         if init_conf:
             self.conf = init_conf
