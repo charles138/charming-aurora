@@ -3,7 +3,7 @@ name: CI pipeline
 on:
   push:
     branches:
-      - '**'
+      - 'f**'
     tags-ignore:
       - 'v*' # this tag type is used for release pipelines
 
@@ -41,12 +41,12 @@ jobs:
           echo "Launching unit tests"
           pytest tests/unit
 
-      - name: Workflow deployment (assets only upload)
-        run: |
-          dbx deploy charming-aurora-sample-etl --assets-only
+      # - name: Workflow deployment (assets only upload)
+      #   run: |
+      #     dbx deploy charming-aurora-sample-etl --assets-only
 
-      - name: Run the workflow in a jobless fashion
-        run: |
-          dbx launch charming-aurora-sample-etl --from-assets --trace
+      # - name: Run the workflow in a jobless fashion
+      #   run: |
+      #     dbx launch charming-aurora-sample-etl --from-assets --trace
 
 
