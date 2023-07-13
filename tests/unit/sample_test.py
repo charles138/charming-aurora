@@ -11,7 +11,7 @@ def test_jobs(spark: SparkSession, tmp_path: Path):
     logging.info("Testing the ETL job")
     common_config = {"database": "default", "table": "sklearn_housing"}
     test_etl_config = {"output": common_config}
-    etl_job = SampleETLTask(spark, test_etl_config)
+    etl_job = SampleETLTask(spark, test_etl_config, logging)
     etl_job.launch()
     table_name = f"{test_etl_config['output']['database']}.{test_etl_config['output']['table']}"
     _count = spark.table(table_name).count()
@@ -23,7 +23,7 @@ def test_jobs(spark: SparkSession, tmp_path: Path):
         "input": common_config,
         "experiment": "/Shared/charming-aurora/sample_experiment"
     }
-    ml_job = SampleMLTask(spark, test_ml_config)
+    ml_job = SampleMLTask(spark, test_ml_config, logging)
     ml_job.launch()
     experiment = mlflow.get_experiment_by_name(test_ml_config['experiment'])
     assert experiment is not None
